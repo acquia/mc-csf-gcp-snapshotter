@@ -95,7 +95,9 @@ function get_disk_tier() {
 }
 
 function get_create_snapshot_command() {
-    echo "gcloud compute disks snapshot '$1' --snapshot-names='${SNAPSHOT_PREFIX}${1}-$(date '+%Y%m%d%H%M')-$(($3 + 1))' --zone='$2' --quiet"
+    name=$(echo $1 | cut -c -33)
+    hash=$(echo $1 | cut -c 34- | sha256sum | cut -c -6)
+    echo "gcloud compute disks snapshot '$1' --snapshot-names='${SNAPSHOT_PREFIX}${name}-${hash}-$(date '+%Y%m%d%H%M')-$(($3 + 1))' --zone='$2' --quiet"
 }
 
 function prepare_create_snapshots() {
