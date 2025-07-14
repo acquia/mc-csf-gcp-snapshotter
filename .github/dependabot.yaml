@@ -1,17 +1,21 @@
 version: 2
 updates:
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-    pull-request-branch-name:
-      separator: "-"
-    groups:
-      docker-dependencies:
-        patterns:
-          - "*"
-    registries:
-      - jfrog
+- package-ecosystem: docker
+  directory: /
+  schedule:
+    interval: weekly
+  pull-request-branch-name:
+    separator: "-"
+  groups:
+    docker-dependencies:
+      patterns:
+      - "*"
+  registries:
+  - jfrog
+  ignore:
+  - update-types:
+    - version-update:semver-major
+  - dependency-name: "*"
 registries:
   jfrog:
     type: docker-registry
